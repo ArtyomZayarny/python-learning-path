@@ -36,7 +36,7 @@ Add demo links or screenshots here once available.
 ## 🔧 Installation & Run
 
 ```bash
-git clone https://github.com/username/learning-path.git
+git clone https://github.com/ArtyomZayarny/python-learning-path.git
 cd learning-path
 python -m venv venv
 source venv/bin/activate  # (Windows: venv\Scripts\activate)
