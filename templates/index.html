@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .game-area {
+            margin: 30px 0;
+        }
+
+        .difficulty-buttons {
+            margin: 20px 0;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            margin: 5px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-easy {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-hard {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        input[type="number"] {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 18px;
+            width: 200px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            border-color: #667eea;
+        }
+
+        .guess-btn {
+            background: #667eea;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .guess-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .message {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .attempts {
+            font-size: 20px;
+            color: #666;
+            margin: 15px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .game-stats {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            input[type="number"] {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Number Guessing Game</h1>
+        
+        <div id="start-screen">
+            <p style="font-size: 18px; margin-bottom: 20px; color: #666;">
+                I'm thinking of a number between 1 and 100. Can you guess it?
+            </p>
+            
+            <div class="difficulty-buttons">
+                <button class="btn btn-easy" onclick="startGame('easy')">Easy (10 attempts)</button>
+                <button class="btn btn-hard" onclick="startGame('hard')">Hard (5 attempts)</button>
+            </div>
+        </div>
+
+        <div id="game-screen" class="hidden">
+            <div class="game-area">
+                <div class="attempts" id="attempts-display"></div>
+                
+                <div class="input-group">
+                    <input type="number" id="guess-input" placeholder="Enter your guess (1-100)" min="1" max="100">
+                    <button class="guess-btn" onclick="makeGuess()">Guess!</button>
+                </div>
+                
+                <div id="message" class="message hidden"></div>
+                
+                <button class="btn btn-easy" onclick="resetGame()" style="margin-top: 20px;">New Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let gameActive = false;
+
+        function showMessage(text, type = 'info') {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.classList.remove('hidden');
+        }
+
+        function hideMessage() {
+            document.getElementById('message').classList.add('hidden');
+        }
+
+        function updateAttempts(attempts) {
+            document.getElementById('attempts-display').textContent = `Attempts left: ${attempts}`;
+        }
+
+        async function startGame(difficulty) {
+            try {
+                const response = await fetch('/start_game', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ difficulty: difficulty })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    gameActive = true;
+                    document.getElementById('start-screen').classList.add('hidden');
+                    document.getElementById('game-screen').classList.remove('hidden');
+                    updateAttempts(data.attempts_left);
+                    showMessage(data.message, 'info');
+                    
+                    // Focus on input
+                    setTimeout(() => {
+                        document.getElementById('guess-input').focus();
+                    }, 100);
+                } else {
+                    showMessage(data.error || 'Failed to start game', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+            }
+        }
+
+        async function makeGuess() {
+            if (!gameActive) return;
+            
+            const guessInput = document.getElementById('guess-input');
+            const guess = guessInput.value.trim();
+            
+            if (!guess) {
+                showMessage('Please enter a number!', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/make_guess', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ guess: guess })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    if (data.error) {
+                        showMessage(data.error, 'error');
+                    } else {
+                        updateAttempts(data.attempts_left);
+                        
+                        if (data.game_over) {
+                            if (data.won) {
+                                showMessage(data.result, 'success');
+                            } else {
+                                showMessage(data.result, 'error');
+                            }
+                            gameActive = false;
+                        } else {
+                            showMessage(data.result, 'info');
+                        }
+                    }
+                } else {
+                    showMessage(data.error || 'Failed to make guess', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+            }
+            
+            guessInput.value = '';
+            guessInput.focus();
+        }
+
+        function resetGame() {
+            gameActive = false;
+            hideMessage();
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+            document.getElementById('guess-input').value = '';
+        }
+
+        // Allow Enter key to submit guess
+        document.getElementById('guess-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                makeGuess();
+            }
+        });
+    </script>
+</body>
+</html>
