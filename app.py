@@ -10,8 +10,11 @@ import os
 # Add the guess_number_game directory to the Python path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'guess_number_game'))
 
-# Import and run the Flask app
-from app import app
+# Import the Flask app from the guess_number_game module
+from guess_number_game.app import app
+
+# This is needed for Gunicorn to find the app
+application = app
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
