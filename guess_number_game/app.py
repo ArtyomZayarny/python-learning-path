@@ -47,6 +47,10 @@ def make_guess():
     attempts_left = session.get('attempts_left')
     game_over = session.get('game_over')
     
+    # Check if game is initialized
+    if target_number is None:
+        return jsonify({'error': 'No active game! Please start a new game first.'})
+    
     if game_over:
         return jsonify({'error': 'Game is already over. Start a new game!'})
     
