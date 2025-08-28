@@ -21,12 +21,18 @@ demo/             # Screenshots, videos, GIFs for README
 
 ---
 
-## 🚀 Demo (placeholders)
+## 🚀 Live Demo
 
-Add demo links or screenshots here once available.
+Your projects are now live and ready to play!
+
+- 🎮 **Number Guessing Game:** [Play Now!](https://python-learning-path-1.onrender.com/)
+
+  - Web-based number guessing game with beautiful UI
+  - Choose difficulty: Easy (10 attempts) or Hard (5 attempts)
+  - Real-time feedback and session management
+  - Built with Flask and deployed on Render
 
 - 📊 **CSV Analytics:** (coming soon)
-- 🎮 **Mini Game (console):** (coming soon)
 - 🤖 **ML API (FastAPI):** (coming soon)
 - 🌐 **Frontend:** (coming soon)
 - 🎥 **Video Demo:** (coming soon)
@@ -56,7 +62,7 @@ pip install -r requirements.txt
    - **Environment:** Python 3
 5. **Deploy!** Your game will be available at a Render URL
 
-**Live Demo:** [Coming soon - will be added after deployment]
+**✅ Live Demo:** [Number Guessing Game](https://python-learning-path-1.onrender.com/) - Successfully deployed!
 
 ---
 
@@ -79,6 +85,7 @@ pip install -r requirements.txt
   ```
 
 - **Number Guessing Game**: Web-based number guessing game with Flask.  
+  **Live Demo:** [Play Now!](https://python-learning-path-1.onrender.com/)  
   Run:
 
   ```bash
@@ -86,7 +93,7 @@ pip install -r requirements.txt
   python guess_number_game/main.py
 
   # Web version
-  python app.py
+  cd guess_number_game && python app.py
   # Then open http://localhost:5000 in your browser
   ```
 
@@ -216,15 +223,61 @@ pip install -r requirements.txt
 
 ## ✅ Progress
 
-- [x] Python Basics
-- [ ] Data Analysis
-- [ ] Algorithms
-- [ ] ML
-- [ ] DL
-- [ ] Backend
-- [ ] Frontend
-- [ ] Deploy
-- [ ] Monetization
+- [x] **Python Basics**
+
+  - [x] Console number guessing game (`guess_number_game/main.py`)
+  - [x] Web-based Flask application (`guess_number_game/flask_app.py`)
+  - [ ] Text Parser
+  - [ ] Project structure and organization
+
+- [ ] **Data Analysis**
+
+  - [ ] CSV Sales Analyzer
+  - [ ] JSON Parser with data visualization
+  - [ ] Pandas and matplotlib integration
+
+- [ ] **Algorithms**
+
+  - [ ] Phone Book CLI with CRUD operations
+  - [ ] Brackets Validator & Calculator
+  - [ ] Search algorithms implementation
+
+- [ ] **ML**
+
+  - [ ] Housing Price Prediction (regression)
+  - [ ] Spam Classifier (classification)
+  - [ ] Scikit-learn models and evaluation
+
+- [ ] **DL**
+
+  - [ ] MNIST CNN for digit classification
+  - [ ] Sentiment Classifier for text analysis
+  - [ ] PyTorch/TensorFlow implementation
+
+- [ ] **Backend**
+
+  - [ ] FastAPI model serving API
+  - [ ] CRUD service with SQLAlchemy
+  - [ ] Database integration and migrations
+
+- [ ] **Frontend**
+
+  - [ ] Basic HTML/JS web interface
+  - [ ] React UI with Tailwind CSS
+  - [ ] User authentication and dashboard
+
+- [x] **Deploy**
+
+  - [x] Render deployment configuration (`render.yaml`)
+  - [x] Production server setup (Gunicorn)
+  - [x] Live demo: [Number Guessing Game](https://python-learning-path-1.onrender.com/)
+  - [ ] Docker containerization
+  - [ ] CI/CD pipeline with GitHub Actions
+
+- [ ] **Monetization**
+  - [ ] User subscription system
+  - [ ] Payment integration
+  - [ ] Analytics and user tracking
 
 ---
 
