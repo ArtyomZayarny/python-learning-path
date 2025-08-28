@@ -51,21 +51,6 @@ source venv/bin/activate  # (Windows: venv\Scripts\activate)
 pip install -r requirements.txt
 ```
 
-### Deploy on Render
-
-1. **Fork or clone** this repository to your GitHub account
-2. **Sign up** for a free account at [render.com](https://render.com)
-3. **Create a new Web Service** and connect your GitHub repository
-4. **Configure the service:**
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `python app.py`
-   - **Environment:** Python 3
-5. **Deploy!** Your game will be available at a Render URL
-
-**✅ Live Demo:** [Number Guessing Game](https://python-learning-path-1.onrender.com/) - Successfully deployed!
-
----
-
 ## 📂 Mini Projects
 
 ### 1. Basics (01_basics)
