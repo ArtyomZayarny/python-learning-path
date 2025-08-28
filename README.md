@@ -35,6 +35,8 @@ Add demo links or screenshots here once available.
 
 ## 🔧 Installation & Run
 
+### Local Development
+
 ```bash
 git clone https://github.com/ArtyomZayarny/python-learning-path.git
 cd learning-path
@@ -42,6 +44,19 @@ python -m venv venv
 source venv/bin/activate  # (Windows: venv\Scripts\activate)
 pip install -r requirements.txt
 ```
+
+### Deploy on Render
+
+1. **Fork or clone** this repository to your GitHub account
+2. **Sign up** for a free account at [render.com](https://render.com)
+3. **Create a new Web Service** and connect your GitHub repository
+4. **Configure the service:**
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `python app.py`
+   - **Environment:** Python 3
+5. **Deploy!** Your game will be available at a Render URL
+
+**Live Demo:** [Coming soon - will be added after deployment]
 
 ---
 
@@ -58,8 +73,21 @@ pip install -r requirements.txt
 
 - **Mini Game (console)**: simple console game (Hangman, Bulls and Cows, etc.).  
   Run:
+
   ```bash
   python 01_basics/game/main.py
+  ```
+
+- **Number Guessing Game**: Web-based number guessing game with Flask.  
+  Run:
+
+  ```bash
+  # Console version
+  python guess_number_game/main.py
+
+  # Web version
+  python app.py
+  # Then open http://localhost:5000 in your browser
   ```
 
 ---
